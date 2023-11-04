@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+</head>
+<body>
+    <h1>Student Details</h1>
+    <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+    <p>Email: {{ student.email }}</p>
+    <p>Age: {{ student.age }}</p>
+
+    <h3>Courses:</h3>
+    <ul>
+        {% for course in student.courses.all %}
+            <li>{{ course.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Add a New Course</h3>
+    <form method="post">
+        {% csrf_token %}
+        <select name="course_id">
+            <option value="" disabled selected>Select a Course</option>
+            {% for course in available_courses %}
+                <option value="{{ course.id }}">{{ course.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Add Course">
+    </form>
+</body>
+</html>
